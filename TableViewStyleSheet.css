@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+* {
+    -fx-primary : #451400;
+    -fx-secondary : #a81612;
+    -fx-primarytext : #000000;
+    -fx-secondarytext : #FFFFFF;
+}
+
+
+.table-row-cell:selected {
+	-fx-background-color:  -fx-primary;
+}
+
+.table-row-cell:selected .text {
+	-fx-fill:  white;
+}
+
+.text-field:focused{
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: -fx-primarytext;
+}
+
+
+.table-view:focused{
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: -fx-primary;
+}
+
+.button:focused{
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: -fx-primary;
+}
+
+.button{
+    -fx-text-fill: -fx-secondarytext;
+    -fx-background-color: -fx-primary;
+    -fx-border-color: -fx-secondary;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.button:hover, .button:focused{
+    -fx-border-color: -fx-secondary;
+    -fx-background-color: -fx-secondary;
+    -fx-text-fill: -fx-secondarytext;
+}
+
+.text-field {
+	-fx-text-fill: -fx-primarytext;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0 ;
+}
+
+.root {
+	-fx-font-family: 'Roboto', sans-serif;
+}
