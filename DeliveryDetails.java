@@ -3,30 +3,33 @@ package com.example.cse360;
 import java.util.Random;
 
 public class DeliveryDetails {
-    private int timeArrival;
-    private int orderAhead;
+    public int timeArrival = 5;
+    public int orderAhead = 5;
     private int time;
+    public int updateTimeArrival;
 
     public DeliveryDetails() {
     }
 
     public int getrandomizeTime() {
         Random rand = new Random();
-        this.time = rand.nextInt(27);
+        this.time = rand.nextInt(25);
         return this.time;
     }
 
-    public int getnumOfOrders() {
-        this.orderAhead = 5;
-        return this.orderAhead;
-    }
-
     public int gettimeArrival() {
-        this.timeArrival = this.getnumOfOrders() * this.getrandomizeTime();
+        this.timeArrival = orderAhead * this.getrandomizeTime();
         return this.timeArrival;
     }
 
+    public int updateOrderTime(){
+        DeliveryController newTime = new DeliveryController();
+        int timeMinutes = newTime.timeMinutes;
+        updateTimeArrival = timeArrival - timeMinutes;
+        return this.updateTimeArrival;
+    }
+
     public String toString() {
-        return "Item{timeArrival=" + this.timeArrival + ", ordersAhead='" + this.orderAhead + "', time='" + this.time + "'}";
+        return "Item{timeArrival=" + this.timeArrival + ", ordersAhead='" + this.orderAhead + "', time='" + this.time + "', time='\" + this.time + \"'}";
     }
 }

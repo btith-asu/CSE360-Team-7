@@ -12,7 +12,7 @@ public class Delivery extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Delivery.class.getResource("delivery-order.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 852, 480);
-        scene.getStylesheets().add ("path/Style.css");
+        scene.getStylesheets().add ("com/example/cse360/Style.css");
         stage.setTitle("Delivery Details");
         stage.setScene(scene);
         stage.show();
