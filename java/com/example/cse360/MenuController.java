@@ -2,28 +2,31 @@ package com.example.cse360;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.scene.Node;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class MenuController implements Initializable {
     @FXML
@@ -44,11 +47,15 @@ public class MenuController implements Initializable {
     @FXML
     private Button checkout;
 
+    @FXML
+    private HBox buttonBox;
 
     private ArrayList<ScrollPane> tabScrolls = new ArrayList<ScrollPane>();;
     private ArrayList<HBox> hboxContain = new ArrayList<HBox>();
     private ArrayList<VBox> vboxContain = new ArrayList<VBox>();
     ArrayList<String> types = new ArrayList<String>();
+    ArrayList<Integer> ids = new ArrayList<Integer>();
+    ArrayList<Integer> indices = new ArrayList<Integer>();
 
     private Order order = new Order();
     private Menu menu = new Menu();
@@ -59,33 +66,21 @@ public class MenuController implements Initializable {
     }
 
     private void setupMenu() {
-        MenuItem item1 = new MenuItem(400,"Fries","Side", 5.35, "https://media.istockphoto.com/photos/fast-food-picture-id531189325?b=1&k=20&m=531189325&s=170667a&w=0&h=AwqBLMunJMm4BZLGNB2VmeCaFsM0zU_U3HrUnUH3xRk=");
-        MenuItem item2 = new MenuItem(800,"Bacon Burger","Entree", 8.95, "https://media.istockphoto.com/photos/western-barbecue-bacon-cheeseburger-picture-id923270448?k=20&m=923270448&s=612x612&w=0&h=jkXjSmzPEw1rv7nMfJnvZCiCuuXWsOYAdoo0RQ9Wb60=");
-        MenuItem item3 = new MenuItem(350,"Vanilla Shake","Dessert", 4.50, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXCK3wqAmpLRchnr8KCj1nUQcgnz-yh8A2Lg&usqp=CAU");
-        MenuItem item4 = new MenuItem(180,"Sweet Tea","Drink", 2.15, "https://media.istockphoto.com/photos/a-glass-of-frozen-lemon-black-tea-on-a-white-background-picture-id1155623658?k=20&m=1155623658&s=612x612&w=0&h=NENT_Yd2LhoeJJfHHRUUsVjIONkoIgOe8-R19eC8qxg=");
+        try {
+            File file = new File("menuItems.txt");
+            Scanner scan = new Scanner(file);
+            while (scan.hasNextLine()) {
+                String data = scan.nextLine();
+                ArrayList<String> parser = new ArrayList<>(Arrays.asList(data.split("\\\\")));
 
-        MenuItem item5 = new MenuItem(400,"Fries","Entree", 5.35, "https://media.istockphoto.com/photos/fast-food-picture-id531189325?b=1&k=20&m=531189325&s=170667a&w=0&h=AwqBLMunJMm4BZLGNB2VmeCaFsM0zU_U3HrUnUH3xRk=");
-        MenuItem item6 = new MenuItem(800,"Bacon Burger","Side", 8.95, "https://media.istockphoto.com/photos/western-barbecue-bacon-cheeseburger-picture-id923270448?k=20&m=923270448&s=612x612&w=0&h=jkXjSmzPEw1rv7nMfJnvZCiCuuXWsOYAdoo0RQ9Wb60=");
-        MenuItem item7 = new MenuItem(350,"Vanilla Shake","Drink", 4.50, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXCK3wqAmpLRchnr8KCj1nUQcgnz-yh8A2Lg&usqp=CAU");
-        MenuItem item8 = new MenuItem(180,"Sweet Tea","Dessert", 2.15, "https://media.istockphoto.com/photos/a-glass-of-frozen-lemon-black-tea-on-a-white-background-picture-id1155623658?k=20&m=1155623658&s=612x612&w=0&h=NENT_Yd2LhoeJJfHHRUUsVjIONkoIgOe8-R19eC8qxg=");
-
-        MenuItem item9 = new MenuItem(400,"Fries","Dessert", 5.35, "https://media.istockphoto.com/photos/fast-food-picture-id531189325?b=1&k=20&m=531189325&s=170667a&w=0&h=AwqBLMunJMm4BZLGNB2VmeCaFsM0zU_U3HrUnUH3xRk=");
-        MenuItem item10 = new MenuItem(800,"Bacon Burger","Dessert", 8.95, "https://media.istockphoto.com/photos/western-barbecue-bacon-cheeseburger-picture-id923270448?k=20&m=923270448&s=612x612&w=0&h=jkXjSmzPEw1rv7nMfJnvZCiCuuXWsOYAdoo0RQ9Wb60=");
-        MenuItem item11 = new MenuItem(350,"Vanilla Shake","Entree", 4.50, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXCK3wqAmpLRchnr8KCj1nUQcgnz-yh8A2Lg&usqp=CAU");
-        MenuItem item12 = new MenuItem(180,"Sweet Tea","Entree", 2.15, "https://media.istockphoto.com/photos/a-glass-of-frozen-lemon-black-tea-on-a-white-background-picture-id1155623658?k=20&m=1155623658&s=612x612&w=0&h=NENT_Yd2LhoeJJfHHRUUsVjIONkoIgOe8-R19eC8qxg=");
-
-        menu.addItemMenu(item1);
-        menu.addItemMenu(item2);
-        menu.addItemMenu(item3);
-        menu.addItemMenu(item4);
-        menu.addItemMenu(item5);
-        menu.addItemMenu(item6);
-        menu.addItemMenu(item7);
-        menu.addItemMenu(item8);
-        menu.addItemMenu(item9);
-        menu.addItemMenu(item10);
-        menu.addItemMenu(item11);
-        menu.addItemMenu(item12);
+                MenuItem itemTemp = new MenuItem(Integer.parseInt(parser.get(0)), Integer.parseInt(parser.get(1)),parser.get(2),parser.get(3), Double.parseDouble(parser.get(4)), parser.get(5), parser.get(6));
+                menu.addItemMenu(itemTemp);
+            }
+            scan.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
 
 
         VBox spacing = new VBox();
@@ -160,42 +155,54 @@ public class MenuController implements Initializable {
         scroll.setFitToHeight(true);
         scroll.setFitToWidth(true);
         vboxOuter.setPrefHeight(vboxOuter.getMaxHeight());
+        buttonBox.requestFocus();
         /*tabScroll.setFitToHeight(false);
         tabScroll.setFitToWidth(false);
         hboxOuter.getChildren().addAll(spacing, menu.getItemShell(0), menu.getItemShell(1), menu.getItemShell(2), menu.getItemShell(3));
         */
 
-
         for(int i = 0; i < menu.getCount(); i++) {
             int index = i;
 
-            ArrayList<Integer> ids = new ArrayList<Integer>();
-            ArrayList<Integer> indices = new ArrayList<Integer>();
             menu.getItemImage(i).setPickOnBounds(true);
             menu.getItemImage(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    int counter = 0;
+                    boolean found = false;
                     if(ids.size() == 0) {
                         order.addItemOrder(menu.getItem(index));
-                        indices.add(counter++);
+                        indices.add(order.getCount()-1);
                         ids.add(menu.getItem(index).getId());
                     }
-                    for(int j = 0; j < ids.size(); j++) {
-                        if(ids.get(j) == menu.getItem(index).getId()) {
-                            int k = order.getItem(indices.get(j)).getCount()+1;
-                            order.getItem(indices.get(j)).setCount(k);
-                        }
-                        else {
-                            order.addItemOrder(menu.getItem(index));
-                            indices.add(index);
-                            ids.add(menu.getItem(index).getId());
+                    else {
+                        for(int j = 0; j < ids.size(); j++) {
+                            if(ids.get(j) == menu.getItem(index).getId()) {
+                                /*System.out.println(j);
+                                System.out.println(ids.get(j));
+                                System.out.println(indices.get(j));*/
+                                int k = order.getItem(indices.get(j)).getCount()+1;
+                                order.getItem(indices.get(j)).setCount(k);
+                                found = true;
+                            }
+                            else if(j == ids.size()-1 && found == false){
+                                System.out.println("?");
+                                System.out.println(menu.getItem(index).getId());
+                                System.out.println("ID array");
+                                System.out.println(ids.get(0));
+                                System.out.println("ID size");
+                                System.out.println(ids.size());
+                                order.addItemOrder(menu.getItem(index));
+                                indices.add(order.getCount()-1);
+                                ids.add(menu.getItem(index).getId());
+                                j = j+2;
+                                found = true;
+                            }
                         }
                     }
+
                     //System.out.println(menu.getItem(index).getName());
                 }
             });
-
         }
 
     }
@@ -206,15 +213,20 @@ public class MenuController implements Initializable {
         loader.setLocation(getClass().getResource("order.fxml"));
         Parent tableViewParent = loader.load();
 
-        Scene tableViewScene = new Scene(tableViewParent);
-
-        OrderController controller = loader.getController();
-        controller.orderConstruct(order);
-
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
+        Scene tableViewScene = new Scene(tableViewParent, window.getWidth(), window.getHeight());
+
+        OrderController controller = loader.getController();
+        System.out.println(order.getCount());
+        controller.orderConstruct(order);
+
+        //window.setWidth(window.getWidth());
+        //window.setHeight(window.getHeight());
         window.setScene(tableViewScene);
         window.show();
+
+
     }
 
     @FXML
@@ -372,7 +384,7 @@ public class MenuController implements Initializable {
             }
             vboxInner.getChildren().clear();
             for (int i = 0; i < types.size(); i++) {
-                System.out.println(types.size());
+                //System.out.println(types.size());
                 vboxInner.getChildren().add(tabScrolls.get(i));
             }
         }
@@ -380,12 +392,19 @@ public class MenuController implements Initializable {
         scroll.setContent(vboxInner);
     }
 
-    @FXML
-    public void check() {
-        vboxInner.getChildren().removeAll();
-        scroll.setContent(null);
-        System.out.println("?");
+    public void orderConstruct(Order incomeOrder) {
+        indices.clear();
+        ids.clear();
+        order = incomeOrder;
+        for(int index = 0; index < order.getCount(); index++) {
+            indices.add(index);
+            ids.add(order.getItem(index).getId());
+            System.out.println(ids.get(index));
+            System.out.println(indices.get(index));
+        }
     }
+
+
 }
 
 

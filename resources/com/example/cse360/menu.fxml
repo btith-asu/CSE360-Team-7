@@ -33,10 +33,10 @@
                     </HBox.margin>
                 </Text>
             <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="51.0" prefWidth="606.0">
+            <HBox fx:id="buttonBox" alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="51.0" prefWidth="606.0">
                <children>
                   <Button fx:id="checkout" mnemonicParsing="false" onAction="#checkout" text="Checkout" />
-                      <Region fx:id="navCart" maxHeight="18.0" maxWidth="18.0" minHeight="18.0" minWidth="18.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#check" opacity="0.75" prefHeight="18.0" prefWidth="18.0" style="-fx-shape: &quot;M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm4.3 14.3c-.39.39-1.02.39-1.41 0L12 13.41 9.11 16.3c-.39.39-1.02.39-1.41 0-.39-.39-.39-1.02 0-1.41L10.59 12 7.7 9.11c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0L12 10.59l2.89-2.89c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41L13.41 12l2.89 2.89c.38.38.38 1.02 0 1.41z&quot;; -fx-background-color: #ffffff; -fx-scale-x: -1;" HBox.hgrow="ALWAYS">
+                      <Region fx:id="navCart" maxHeight="18.0" maxWidth="18.0" minHeight="18.0" minWidth="18.0" nodeOrientation="LEFT_TO_RIGHT" opacity="0.75" prefHeight="18.0" prefWidth="18.0" style="-fx-shape: &quot;M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm4.3 14.3c-.39.39-1.02.39-1.41 0L12 13.41 9.11 16.3c-.39.39-1.02.39-1.41 0-.39-.39-.39-1.02 0-1.41L10.59 12 7.7 9.11c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0L12 10.59l2.89-2.89c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41L13.41 12l2.89 2.89c.38.38.38 1.02 0 1.41z&quot;; -fx-background-color: #ffffff; -fx-scale-x: -1;" HBox.hgrow="ALWAYS">
                           <cursor>
                               <Cursor fx:constant="HAND" />
                           </cursor>

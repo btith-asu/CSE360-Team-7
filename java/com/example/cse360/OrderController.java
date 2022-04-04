@@ -1,27 +1,38 @@
 package com.example.cse360;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Button;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class OrderController implements Initializable {
 
-    private Order order;
+    DecimalFormat df = new DecimalFormat("0.00");
+
+    private Order order = new Order();
 
     @FXML
     private TableView<MenuItem> orderedItems;
 
     // Columns:
+    @FXML
+    private TableColumn<MenuItem, String> numCol;
 
     @FXML
     private TableColumn<MenuItem, String> itemCol;
@@ -41,8 +52,18 @@ public class OrderController implements Initializable {
     @FXML
     private TableColumn<MenuItem, String> removeCol;
 
+    @FXML
+    private Button payButton;
+
+    @FXML
+    private Button menuButton;
+
+    @FXML
+    private Text priceText;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        numCol.setCellValueFactory(new PropertyValueFactory<>("count"));
         itemCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         calCol.setCellValueFactory(new PropertyValueFactory<>("calories"));
         priceCol.setCellValueFactory(new PropertyValueFactory<>("priceString"));
@@ -62,7 +83,17 @@ public class OrderController implements Initializable {
                             setText(null);
                         } else {
                             add.setOnAction(event -> {
-                                System.out.println("working?");
+                                MenuItem clickedItem = getTableView().getItems().get(getIndex());
+                                if (clickedItem == null) {
+                                    return;
+                                }
+                                int k = clickedItem.getCount();
+                                clickedItem.setCount(k+1);
+                                //ObservableList<MenuItem> currentTableData = orderedItems.getItems();
+                                //orderedItems.setItems(currentTableData);
+                                orderedItems.refresh();
+                                priceText.setText("$" + df.format(order.totalPrice()));
+
                             });
                             setGraphic(add);
                             setText(null);
@@ -87,7 +118,18 @@ public class OrderController implements Initializable {
                             setText(null);
                         } else {
                             remove.setOnAction(event -> {
-                                System.out.println("working!");
+                                MenuItem clickedItem = getTableView().getItems().get(getIndex());
+                                if (clickedItem == null) {
+                                    return;
+                                }
+                                int k = clickedItem.getCount();
+                                if(k > 0) {
+                                    clickedItem.setCount(k-1);
+                                }
+                                //ObservableList<MenuItem> currentTableData = orderedItems.getItems();
+                                //orderedItems.setItems(currentTableData);
+                                orderedItems.refresh();
+                                priceText.setText("$" + df.format(order.totalPrice()));
                             });
                             setGraphic(remove);
                             setText(null);
@@ -98,6 +140,7 @@ public class OrderController implements Initializable {
             }
         };
         removeCol.setCellFactory(cellFactory2);
+        System.out.println(orderedItems);
     }
 
     private void setupTable(){
@@ -106,10 +149,50 @@ public class OrderController implements Initializable {
     }
 
     public void orderConstruct(Order incomeOrder) {
-        ArrayList<Integer> ids = new ArrayList<Integer>();
+        orderedItems.getItems().clear();
         order = incomeOrder;
+        //System.out.println(order.getCount());
         for(int i = 0; i < order.getCount(); i++) {
             orderedItems.getItems().add(order.getItem(i));
         }
+        priceText.setText("$" + df.format(order.totalPrice()));
+        //System.out.println(order.getCount());
     }
+
+    @FXML
+    public void backMenu(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("menu.fxml"));
+        Parent tableViewParent = loader.load();
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        Scene tableViewScene = new Scene(tableViewParent, window.getWidth(), window.getHeight());
+
+        MenuController controller = loader.getController();
+        controller.orderConstruct(order);
+
+        //window.setHeight(window.getHeight());
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+    @FXML
+    public void payMenu(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("checkout.fxml"));
+        Parent tableViewParent = loader.load();
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        Scene tableViewScene = new Scene(tableViewParent, window.getWidth(), window.getHeight());
+
+        CheckoutController controller = loader.getController();
+        controller.payConstruct(order.totalPrice(), order);
+
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+
 }

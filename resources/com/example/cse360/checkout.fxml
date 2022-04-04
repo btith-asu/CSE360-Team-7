@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@TableViewStyleSheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cse360.CheckoutController">
+    <children>
+        <HBox fx:id="NavBar" alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="600.0" spacing="100.0" style="-fx-background-color: #451400;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Restaurant">
+                    <font>
+                        <Font size="26.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="20.0" />
+                    </HBox.margin>
+                </Text>
+                <Region fx:id="navCart" maxHeight="18.0" maxWidth="18.0" minHeight="18.0" minWidth="18.0" nodeOrientation="LEFT_TO_RIGHT" opacity="0.75" prefHeight="18.0" prefWidth="18.0" style="-fx-shape: &quot;M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm4.3 14.3c-.39.39-1.02.39-1.41 0L12 13.41 9.11 16.3c-.39.39-1.02.39-1.41 0-.39-.39-.39-1.02 0-1.41L10.59 12 7.7 9.11c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0L12 10.59l2.89-2.89c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41L13.41 12l2.89 2.89c.38.38.38 1.02 0 1.41z&quot;; -fx-background-color: #ffffff; -fx-scale-x: -1;" translateX="570.0">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <HBox.margin>
+                        <Insets right="20.0" />
+                    </HBox.margin>
+                </Region>
+                <Region prefHeight="200.0" prefWidth="200.0" />
+            </children>
+        </HBox>
+        <VBox layoutX="14.0" layoutY="51.0" prefHeight="382.0" prefWidth="274.0" spacing="10.0" AnchorPane.bottomAnchor="126.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
+            <children>
+                <Text fx:id="modeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Billing Info" textAlignment="CENTER" wrappingWidth="277.03123474121094">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Text>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="192.025390625">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Text>
+                <TextField fx:id="nameField" onKeyTyped="#keyPressed" promptText="Enter Name" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Billing Address:">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Text>
+                <TextField fx:id="addressField" onKeyTyped="#keyPressed" prefHeight="25.0" prefWidth="75.0" promptText="Enter Address" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="City:">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Text>
+                <TextField fx:id="cityField" onKeyTyped="#keyPressed" promptText="Enter City" />
+                <Text fx:id="stateLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="State:">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Text>
+            <TextField fx:id="stateField" promptText="Enter State" />
+            <Text layoutX="10.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ZIP Code:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="zipField" layoutX="10.0" layoutY="258.0" promptText="Enter ZIP Code" />
+            </children>
+        </VBox>
+      <VBox layoutX="309.0" layoutY="59.0" prefHeight="284.0" prefWidth="278.0" spacing="10.0">
+         <children>
+            <Text fx:id="modeText1" strokeType="OUTSIDE" strokeWidth="0.0" text="Card Info" textAlignment="CENTER" wrappingWidth="277.03123474121094">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Card Number:" wrappingWidth="192.025390625">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="numField" onKeyTyped="#keyPressed" promptText="0123 4567 8910 1112" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="EXP Date:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="expField" onKeyTyped="#keyPressed" prefHeight="25.0" prefWidth="75.0" promptText="01/22" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CVV:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="cvvField" onKeyTyped="#keyPressed" promptText="999" />
+            <Text layoutX="10.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coupon: (Optional)">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="couponField" onKeyTyped="#calculateTotal" />
+         </children>
+      </VBox>
+      <VBox layoutY="341.0" prefHeight="100.0" prefWidth="600.0" AnchorPane.topAnchor="400.0">
+         <children>
+            <Button fx:id="orderButton" disable="true" mnemonicParsing="false" onAction="#placeOrder" prefHeight="26.0" prefWidth="500.0" text="Place Order">
+               <VBox.margin>
+                  <Insets left="50.0" />
+               </VBox.margin>
+            </Button>
+            <Text fx:id="orderText" strokeType="OUTSIDE" strokeWidth="0.0" text="ORDER TOTAL: ">
+               <VBox.margin>
+                  <Insets left="225.0" top="20.0" />
+               </VBox.margin>
+            </Text>
+            <Text fx:id="errorText" fill="RED" layoutX="235.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0">
+               <VBox.margin>
+                  <Insets left="200.0" />
+               </VBox.margin>
+            </Text>
+         </children>
+      </VBox>
+    </children>
+</AnchorPane>

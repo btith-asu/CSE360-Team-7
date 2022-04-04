@@ -8,16 +8,23 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
+import java.util.*;
 
-import static com.example.cse360.RestSide.isNumeric;
 
 public class RestSideController implements Initializable {
+
+    Menu list = new Menu();
 
     @FXML
     private TableView<MenuItem> menu;
@@ -59,6 +66,12 @@ public class RestSideController implements Initializable {
     private TextField inputPrice;
 
     @FXML
+    private TextField inputLink;
+
+    @FXML
+    private TextField inputTag;
+
+    @FXML
     private Button submit;
 
     @FXML
@@ -73,9 +86,33 @@ public class RestSideController implements Initializable {
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         calCol.setCellValueFactory(new PropertyValueFactory<>("calories"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("priceString"));
         submit.setDisable(true);
         remove.setDisable(true);
+
+        File file = new File("menuItems.txt");
+        try {
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+                MenuItem item1 = new MenuItem(1, 400,"Fries","Side", 5.35, "https://media.istockphoto.com/photos/fast-food-picture-id531189325?b=1&k=20&m=531189325&s=170667a&w=0&h=AwqBLMunJMm4BZLGNB2VmeCaFsM0zU_U3HrUnUH3xRk=", "French");
+                MenuItem item2 = new MenuItem(2, 800,"Bacon Burger","Entree", 8.95, "https://media.istockphoto.com/photos/western-barbecue-bacon-cheeseburger-picture-id923270448?k=20&m=923270448&s=612x612&w=0&h=jkXjSmzPEw1rv7nMfJnvZCiCuuXWsOYAdoo0RQ9Wb60=", "Bacon");
+                MenuItem item3 = new MenuItem(3, 350,"Vanilla Shake","Dessert", 4.50, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXCK3wqAmpLRchnr8KCj1nUQcgnz-yh8A2Lg&usqp=CAU", "Vanilla");
+                MenuItem item4 = new MenuItem(4, 180,"Sweet Tea","Drink", 2.15, "https://media.istockphoto.com/photos/a-glass-of-frozen-lemon-black-tea-on-a-white-background-picture-id1155623658?k=20&m=1155623658&s=612x612&w=0&h=NENT_Yd2LhoeJJfHHRUUsVjIONkoIgOe8-R19eC8qxg=", "Sweet");
+
+                list.addItemMenu(item1);
+                list.addItemMenu(item2);
+                list.addItemMenu(item3);
+                list.addItemMenu(item4);
+
+
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
         setupTable();
     }
     @FXML
@@ -96,11 +133,21 @@ public class RestSideController implements Initializable {
     void keyPressed() {
         boolean disabled = (inputName.getText().trim().isEmpty() || inputType.getText().trim().isEmpty() || inputCal.getText().trim().isEmpty() || inputPrice.getText().trim().isEmpty()
                 || !isNumeric(inputCal.getText()) || !isNumeric(inputPrice.getText()));
+        try {
+            Image test = new Image(inputLink.getText());
+            if(test.isError() == true) {
+                disabled = true;
+            }
+        }
+        catch (IllegalArgumentException e) {
+            disabled = true;
+        }
         submit.setDisable(disabled);
     }
 
     @FXML
     void deleteClicked() {
+        list.removeItemOrder(menu.getSelectionModel().getSelectedItem());
         menu.getItems().removeAll(menu.getSelectionModel().getSelectedItem());
         updateEditView();
         if (menu.getItems().isEmpty()) {
@@ -108,6 +155,8 @@ public class RestSideController implements Initializable {
             inputName.setText("");
             inputCal.setText("");
             inputPrice.setText("");
+            inputLink.setText("");
+            inputTag.setText("");
             modeText.setText("Add Item");
             submit.setText("Add");
             add.setVisible(false);
@@ -127,15 +176,32 @@ public class RestSideController implements Initializable {
         inputName.setText("");
         inputCal.setText("");
         inputPrice.setText("");
+        inputLink.setText("");
+        inputTag.setText("");
         remove.setDisable(true);
     }
 
     private void setupTable(){
-        MenuItem item1 = new MenuItem(400,"Fries","Side", "$5.35");
-        MenuItem item2 = new MenuItem(800,"Bacon Burger","Entree", "$8.95");
-        MenuItem item3 = new MenuItem(350,"Vanilla Shake","Dessert", "$4.50");
-        MenuItem item4 = new MenuItem(180,"Sweat Tea","Drink", "$2.15");
-        menu.getItems().addAll(item1,item2,item3,item4);
+        try {
+            File file = new File("menuItems.txt");
+            Scanner scan = new Scanner(file);
+            while (scan.hasNextLine()) {
+                String data = scan.nextLine();
+                ArrayList<String> parser = new ArrayList<>(Arrays.asList(data.split("\\\\")));
+
+                MenuItem itemTemp = new MenuItem(Integer.parseInt(parser.get(0)), Integer.parseInt(parser.get(1)),parser.get(2),parser.get(3), Double.parseDouble(parser.get(4)), parser.get(5), parser.get(6));
+                list.addItemMenu(itemTemp);
+            }
+            scan.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        for(int i = 0; i < list.getCount(); i++) {
+            menu.getItems().add(list.getItem(i));
+        }
+        submit.setDisable(true);
     }
 
     private void updateEditView() {
@@ -151,6 +217,8 @@ public class RestSideController implements Initializable {
         inputName.setText(String.valueOf(clickedItem.getName()));
         inputCal.setText(String.valueOf(clickedItem.getCalories()));
         inputPrice.setText(clickedItem.getPriceString().replace("$", ""));
+        inputLink.setText(clickedItem.getImageLink());
+        inputTag.setText(clickedItem.getTag());
         submit.setDisable(false);
         remove.setDisable(false);
     }
@@ -166,17 +234,62 @@ public class RestSideController implements Initializable {
                 DecimalFormat df = new DecimalFormat("0.00");
                 item.setPriceString("$" + df.format(Double.parseDouble(inputPrice.getText())));
                 item.setCalories(Integer.parseInt(inputCal.getText()));
+                item.setImageLink(inputLink.getText());
+                item.setTag(inputTag.getText());
 
                 menu.setItems(currentTableData);
                 menu.refresh();
+
+                try {
+                    FileWriter fileWrite = new FileWriter("menuItems.txt");
+                    for(int i =0; i< list.getCount(); i++) {
+                        fileWrite.write(list.getItem(i).storeString());
+                    }
+                    fileWrite.close();
+                    System.out.println("Successfully wrote to the file.");
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
                 break;
             }
         }
     }
 
     private void addItem() {
-        DecimalFormat df = new DecimalFormat("0.00");
-        MenuItem newItem = new MenuItem(Integer.parseInt(inputCal.getText()),inputName.getText(),inputType.getText(), ("$" + df.format(Double.parseDouble(inputPrice.getText()))));
+        Random rand = new Random();
+        boolean sameId = false;
+        int newId = rand.nextInt(1000);
+
+        for(int i = 0; i < list.getCount(); i++) {
+            if(newId == list.getItem(i).getId()) {
+                sameId = true;
+                i = 0;
+                newId = rand.nextInt(1000);
+            }
+        }
+
+
+        MenuItem newItem = new MenuItem(newId, Integer.parseInt(inputCal.getText()),inputName.getText(),inputType.getText(), Double.parseDouble(inputPrice.getText()), inputLink.getText(), inputTag.getText());
+        list.addItemMenu(newItem);
         menu.getItems().add(newItem);
+
+        try {
+            FileWriter fileWrite = new FileWriter("menuItems.txt");
+            for(int i =0; i< list.getCount(); i++) {
+                fileWrite.write(list.getItem(i).storeString());
+            }
+            fileWrite.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean isNumeric(String str) {
+        ParsePosition pos = new ParsePosition(0);
+        NumberFormat.getInstance().parse(str, pos);
+        return str.length() == pos.getIndex();
     }
 }

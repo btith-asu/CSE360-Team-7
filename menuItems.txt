@@ -1,0 +1,5 @@
+1\400\Fries\Side\5.35\https://media.istockphoto.com/photos/fast-food-picture-id531189325?b=1&k=20&m=531189325&s=170667a&w=0&h=AwqBLMunJMm4BZLGNB2VmeCaFsM0zU_U3HrUnUH3xRk=\French
+2\800\Bacon Burger\Entree\8.95\https://media.istockphoto.com/photos/western-barbecue-bacon-cheeseburger-picture-id923270448?k=20&m=923270448&s=612x612&w=0&h=jkXjSmzPEw1rv7nMfJnvZCiCuuXWsOYAdoo0RQ9Wb60=\Bacon
+3\350\Vanilla Shake\Dessert\4.5\https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXCK3wqAmpLRchnr8KCj1nUQcgnz-yh8A2Lg&usqp=CAU\Vanilla
+4\180\Sweet Tea\Drink\3.15\https://media.istockphoto.com/photos/a-glass-of-frozen-lemon-black-tea-on-a-white-background-picture-id1155623658?k=20&m=1155623658&s=612x612&w=0&h=NENT_Yd2LhoeJJfHHRUUsVjIONkoIgOe8-R19eC8qxg=\Sweet
+239\150\Vanilla Drink\Drink\2.15\https://media.istockphoto.com/photos/a-glass-of-frozen-lemon-black-tea-on-a-white-background-picture-id1155623658?k=20&m=1155623658&s=612x612&w=0&h=NENT_Yd2LhoeJJfHHRUUsVjIONkoIgOe8-R19eC8qxg=\Vanilla

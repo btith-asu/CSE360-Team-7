@@ -36,9 +36,18 @@
                 <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
-        <VBox layoutX="14.0" layoutY="51.0" prefHeight="223.0" prefWidth="192.0" spacing="10.0" AnchorPane.bottomAnchor="126.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
+        <TableView fx:id="menu" layoutX="237.0" layoutY="50.0" onMouseClicked="#rowClicked" prefHeight="430.0" prefWidth="615.0" stylesheets="@TableViewStyleSheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+            <columns>
+                <TableColumn fx:id="idCol" prefWidth="58.40003967285156" text="ID" />
+                <TableColumn fx:id="nameCol" minWidth="80.0" prefWidth="222.4000244140625" text="Name" />
+                <TableColumn fx:id="typeCol" prefWidth="150.0" text="Type" />
+                <TableColumn fx:id="calCol" prefWidth="100.0" text="Calories" />
+                <TableColumn fx:id="priceCol" prefWidth="100.0" text="Price" />
+            </columns>
+        </TableView>
+        <VBox layoutX="2.0" layoutY="51.0" prefHeight="430.0" prefWidth="234.0" spacing="5.0">
             <children>
-                <Text fx:id="modeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Item" textAlignment="CENTER" wrappingWidth="192.03125">
+                <Text fx:id="modeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Item" textAlignment="CENTER" translateY="5.0" wrappingWidth="234.4312744140625">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
@@ -46,36 +55,43 @@
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type:" wrappingWidth="192.025390625">
                     <font>
                         <Font name="System Bold" size="12.0" />
-                    </font></Text>
+                    </font>
+            </Text>
                 <TextField fx:id="inputType" onKeyTyped="#keyPressed" promptText="Enter Type" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
                     <font>
                         <Font name="System Bold" size="12.0" />
-                    </font></Text>
+                    </font>
+            </Text>
                 <TextField fx:id="inputName" onKeyTyped="#keyPressed" prefHeight="25.0" prefWidth="75.0" promptText="Enter Name" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price:">
                     <font>
                         <Font name="System Bold" size="12.0" />
-                    </font></Text>
+                    </font>
+            </Text>
                 <TextField fx:id="inputPrice" onKeyTyped="#keyPressed" promptText="Enter Price" />
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Calories:">
                     <font>
                         <Font name="System Bold" size="12.0" />
-                    </font></Text>
+                    </font>
+            </Text>
                 <TextField fx:id="inputCal" onKeyTyped="#keyPressed" promptText="Enter Calories" />
-                <Button fx:id="submit" mnemonicParsing="false" onAction="#submit" prefHeight="25.0" prefWidth="192.0" text="Save" />
-                <Button fx:id="add" mnemonicParsing="false" onAction="#addClicked" prefHeight="25.0" prefWidth="192.0" text="Create New Item" translateY="20.0" />
-                <Button fx:id="remove" mnemonicParsing="false" onAction="#deleteClicked" prefHeight="25.0" prefWidth="192.0" text="Remove" translateY="20.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image Link:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="inputLink" onKeyTyped="#keyPressed" promptText="Enter image link" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tags">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="inputTag" onKeyTyped="#keyPressed" promptText="Enter tags" />
+                <Button fx:id="submit" mnemonicParsing="false" onAction="#submit" prefHeight="27.0" prefWidth="237.0" text="Save" />
+                <Button fx:id="add" mnemonicParsing="false" onAction="#addClicked" prefHeight="27.0" prefWidth="246.0" text="Create New Item" />
+                <Button fx:id="remove" mnemonicParsing="false" onAction="#deleteClicked" prefHeight="27.0" prefWidth="238.0" text="Remove" />
             </children>
         </VBox>
-        <TableView fx:id="menu" layoutX="194.0" layoutY="51.0" onMouseClicked="#rowClicked" prefHeight="351.0" prefWidth="387.0" stylesheets="@TableViewStyleSheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="213.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="51.0">
-            <columns>
-                <TableColumn fx:id="idCol" prefWidth="50.0" text="ID" />
-                <TableColumn fx:id="nameCol" minWidth="80.0" prefWidth="230.0" text="Name" />
-                <TableColumn fx:id="typeCol" prefWidth="150.0" text="Type" />
-                <TableColumn fx:id="calCol" prefWidth="100.0" text="Calories" />
-                <TableColumn fx:id="priceCol" prefWidth="100.0" text="Price" />
-            </columns>
-        </TableView>
     </children>
 </AnchorPane>

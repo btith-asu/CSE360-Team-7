@@ -1,9 +1,11 @@
 package com.example.cse360;
+
+import javafx.scene.image.Image;
+
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-import javafx.scene.image.Image;
-import java.util.ArrayList;
 
 public class MenuItem {
 
@@ -13,9 +15,25 @@ public class MenuItem {
     private String name;
     private double price;
     private String priceString;
+    private String imageLink;
     private Image image;
+    private String tag;
     private ArrayList<String> tags = new ArrayList<String>();
     private int count = 1;
+
+    public MenuItem(int id, int calories, String name, String type, double price, String image, String tag) {
+        DecimalFormat df = new DecimalFormat("0.00");
+        this.name = name;
+        this.calories = calories;
+        this.type = type;
+        this.price = price;
+        this.priceString = "$" + df.format(price);
+        this.id = id;
+        this.imageLink = image;
+        this.image = new Image(image);
+        this.tag = tag;
+        addTags(tag);
+    }
 
     public MenuItem(int calories, String name, String type, double price) {
         DecimalFormat df = new DecimalFormat("0.00");
@@ -51,6 +69,7 @@ public class MenuItem {
         this.image = new Image(image);
     }
 
+
     public String getType() {
         return type;
     }
@@ -83,9 +102,18 @@ public class MenuItem {
         return price * count;
     }
 
-    public String getPriceString() { return priceString; }
+    public String getPriceString() {
+        return priceString;
+    }
 
     public Image getImage() { return image; }
+
+    public String getImageLink() { return imageLink; }
+
+    public void setImageLink(String link) {
+        this.image = new Image(link);
+        this.imageLink = link;
+    }
 
     public void setPrice(double price) {
         DecimalFormat df = new DecimalFormat("0.00");
@@ -98,8 +126,14 @@ public class MenuItem {
         this.priceString = price;
     }
 
+    public void setTag(String input) {
+        this.tag = input;
+        tags.clear();
+        addTags(input);
+    }
+
     public void addTags(String input) {
-        ArrayList<String> parser = new ArrayList<>(Arrays.asList(input.split(",")));
+        ArrayList<String> parser = new ArrayList<>(Arrays.asList(input.split(", ")));
         for(int i=0; i<parser.size(); i++) {
             this.tags.add(parser.get(i));
         }
@@ -123,12 +157,18 @@ public class MenuItem {
         return tags.size();
     }
 
+    public String getTag() {
+        return tag;
+    }
+
     public String getTags(int index) {
         return tags.get(index);
     }
 
     public void setCount(int num) {
+        DecimalFormat df = new DecimalFormat("0.00");
         this.count = num;
+        this.priceString = "$" + df.format(price * count);
     }
 
     public int getCount() {
@@ -144,5 +184,10 @@ public class MenuItem {
                 ", calories='" + calories + '\'' +
                 ", price='" + price + '\'' +
                 '}';
+    }
+
+    public String storeString() {
+        return id + "\\" + calories + "\\" + name + "\\" +
+                type + "\\" + price + "\\" + imageLink + "\\" + tag +"\n";
     }
 }
